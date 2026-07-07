@@ -16,7 +16,7 @@ export async function register(req, res) {
         ]
     })
     if(isAlreadyRegister){
-        res.status(409).json({
+       return res.status(409).json({
             message: "Username of email already exist"
         })
     }
@@ -228,7 +228,7 @@ export async function logoutAll(req, res){
             message:"Refresh token not found"
         })
     }
-    const decoded = jwt.verify(refreshaToken, config.JWT_SECRET)
+    const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
     await sessionModel.updateMany({
         user:decoded.id,
         revoked:false
